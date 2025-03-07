@@ -2,5 +2,6 @@ rootProject.name = 'spring-cloud'
 
 include(
         "eureka-service",
-        "first-service"
+        "first-service",
+        "second-service"
 )
