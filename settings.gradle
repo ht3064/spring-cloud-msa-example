@@ -6,5 +6,6 @@ include(
         "second-service",
         "gateway-service",
         "config-service",
-        "user-service"
+        "user-service",
+        "order-service"
 )
