@@ -4,5 +4,6 @@ include(
         "eureka-service",
         "first-service",
         "second-service",
-        "gateway-service"
+        "gateway-service",
+        "config-service"
 )
