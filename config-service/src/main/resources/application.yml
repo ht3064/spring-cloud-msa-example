@@ -10,13 +10,11 @@ spring:
     config:
       server:
 #        native:
-#          search-locations: file:///Users/choehyeontae/Desktop/git/toy-msa-etc/git-local-repo
+#          search-locations: file:///Users/choehyeontae/Documents/msa
         git: #default
-          uri: https://github.com/joneconsulting/spring-cloud-config
-#          uri: https://github.com/ht3064/spring-cloud-config
-          default-label: master
-#          default-label: main
-        #          username: <github-id>
+          uri: https://github.com/ht3064/spring-cloud-config.git
+          default-label: main
+#          username: <github-id>
 #          password: <gihub-accessToken>
         bootstrap: true
 #  rabbitmq:
