@@ -5,5 +5,5 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 
     // Rabbit MQ
-    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 }

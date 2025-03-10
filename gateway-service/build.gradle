@@ -18,5 +18,5 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
 
     // Rabbit MQ
-    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 }

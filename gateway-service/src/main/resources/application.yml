@@ -14,14 +14,14 @@ spring:
       on-profile: default
   application:
     name: apigateway-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    listener:
-      simple:
-        prefetch: 5
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+#    listener:
+#      simple:
+#        prefetch: 5
   cloud:
     gateway:
       default-filters:
