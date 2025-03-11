@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
     Environment env;
     RestTemplate restTemplate;
+    OrderServiceClient orderServiceClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,11 +50,13 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository,
                            BCryptPasswordEncoder passwordEncoder,
                            Environment env,
-                           RestTemplate restTemplate) {
+                           RestTemplate restTemplate,
+                           OrderServiceClient orderServiceClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -86,20 +90,23 @@ public class UserServiceImpl implements UserService {
         /* #1 Connect to order-service using a rest template */
         /* @LoadBalanced 로 선언헀으면, apigateway-service로 호출 못함 */
         /* http://ORDER-SERVICE/order-service/1234-45565-34343423432/orders */
-//        String orderUrl = String.format("http://127.0.0.1:8000/order-service/%s/orders", userId);\
+//        String orderUrl = String.format("http://127.0.0.1:8000/order-service/%s/orders", userId);
+
+        /*
         String orderUrl = String.format(env.getProperty("order-service.url"), userId);
         ResponseEntity<List<ResponseOrder>> orderListResponse =
                 restTemplate.exchange(orderUrl, HttpMethod.GET, null,
                                             new ParameterizedTypeReference<List<ResponseOrder>>() {
                 });
         ordersList = orderListResponse.getBody();
+        */
 
         /* Using a feign client */
         /* #2 Feign exception handling */
 //        try {
-////            ResponseEntity<List<ResponseOrder>> _ordersList = orderServiceClient.getOrders(userId);
-////            ordersList = _ordersList.getBody();
-//            ordersList = orderServiceClient.getOrders(userId);
+//            ResponseEntity<List<ResponseOrder>> _ordersList = orderServiceClient.getOrders(userId);
+//            ordersList = _ordersList.getBody();
+            ordersList = orderServiceClient.getOrders(userId);
 //        } catch (FeignException ex) {
 //            log.error(ex.getMessage());
 //        }
