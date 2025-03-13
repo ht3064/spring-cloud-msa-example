@@ -33,6 +33,23 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: B3
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  endpoints:
+    web:
+      exposure:
+        include: health, httptrace, info, metrics, prometheus
+
 logging:
   level:
     com.example.catalogservice: DEBUG
+  pattern:
+    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
