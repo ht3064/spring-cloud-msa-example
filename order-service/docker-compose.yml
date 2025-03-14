@@ -7,7 +7,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MARIADB_ROOT_PASSWORD: test
+      MARIADB_ROOT_PASSWORD: test1357
       MARIADB_USER: example-user
       MARIADB_PASSWORD: test1357
       MARIADB_DATABASE: mydb

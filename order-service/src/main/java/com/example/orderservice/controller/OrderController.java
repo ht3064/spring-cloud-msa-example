@@ -30,7 +30,8 @@ public class OrderController {
     OrderProducer orderProducer;
 
     @Autowired
-    public OrderController(Environment env, OrderService orderService, KafkaProducer kafkaProducer, OrderProducer orderProducer) {
+    public OrderController(Environment env, OrderService orderService,
+                           KafkaProducer kafkaProducer, OrderProducer orderProducer) {
         this.env = env;
         this.orderService = orderService;
         this.kafkaProducer = kafkaProducer;
@@ -55,8 +56,9 @@ public class OrderController {
         orderDto.setUserId(userId);
 
         /* jpa */
-        OrderDto createdOrder = orderService.createOrder(orderDto);
-        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+//        OrderDto createdOrder = orderService.createOrder(orderDto);
+//        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+        ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
 
         /* kafka */
         orderDto.setOrderId(UUID.randomUUID().toString());
