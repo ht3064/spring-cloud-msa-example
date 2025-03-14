@@ -5,6 +5,7 @@ import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
+import com.example.userservice.vo.ResponseStock;
 import com.example.userservice.vo.ResponseUser;
 import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
@@ -139,6 +140,11 @@ public class UserController {
         } catch (Exception ex) {
             throw new RuntimeException();
         }
+    }
+
+    @GetMapping("/products/{productId}/stock")
+    public ResponseStock getStock(@PathVariable String productId) {
+        return userService.getStockForCatalog(productId);
     }
 
     @GetMapping("/users/hateoas")

@@ -1,11 +1,12 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.CatalogServiceClient;
 import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
-import feign.FeignException;
+import com.example.userservice.vo.ResponseStock;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     Environment env;
     RestTemplate restTemplate;
     OrderServiceClient orderServiceClient;
+    CatalogServiceClient catalogServiceClient;
 
     CircuitBreakerFactory circuitBreakerFactory;
 
@@ -54,13 +56,15 @@ public class UserServiceImpl implements UserService {
                            Environment env,
                            RestTemplate restTemplate,
                            OrderServiceClient orderServiceClient,
-                           CircuitBreakerFactory circuitBreakerFactory) {
+                           CircuitBreakerFactory circuitBreakerFactory,
+                           CatalogServiceClient catalogServiceClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
         this.orderServiceClient = orderServiceClient;
         this.circuitBreakerFactory = circuitBreakerFactory;
+        this.catalogServiceClient = catalogServiceClient;
     }
 
     @Override
@@ -145,5 +149,10 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = mapper.map(userEntity, UserDto.class);
         return userDto;
+    }
+
+    @Override
+    public ResponseStock getStockForCatalog(String productId) {
+        return catalogServiceClient.getStockByProductId(productId);
     }
 }

@@ -3,6 +3,7 @@ package com.example.catalogservice.controller;
 import com.example.catalogservice.jpa.CatalogEntity;
 import com.example.catalogservice.service.CatalogService;
 import com.example.catalogservice.vo.ResponseCatalog;
+import com.example.catalogservice.vo.ResponseStock;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -11,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,6 +57,11 @@ public class CatalogController {
         });
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/catalogs/{productId}/stock")
+    public ResponseStock getStockByProductId(@PathVariable String productId) {
+        return catalogService.getStockByProductId(productId);
     }
 
     private List<ServiceInstance> getApplications() {
