@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -126,7 +127,7 @@ public class UserServiceImpl implements UserService {
         ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
                 throwable -> new ArrayList<>());
 
-        userDto.setOrders(ordersList);
+        userDto.setOrders(mergeOrders(ordersList));
 
         log.info("After called orders microservice");
 
@@ -154,5 +155,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseStock getStockForCatalog(String productId) {
         return catalogServiceClient.getStockByProductId(productId);
+    }
+
+    private List<ResponseOrder> mergeOrders(List<ResponseOrder> orders) {
+        return new ArrayList<>(orders.stream()
+                .collect(Collectors.toMap(
+                        ResponseOrder::getProductId,
+                        order -> order,
+                        (existing, newOrder) -> {
+                            existing.setQty(existing.getQty() + newOrder.getQty());
+                            existing.setTotalPrice(existing.getTotalPrice() + newOrder.getTotalPrice());
+                            return existing;
+                        }
+                ))
+                .values());
     }
 }
