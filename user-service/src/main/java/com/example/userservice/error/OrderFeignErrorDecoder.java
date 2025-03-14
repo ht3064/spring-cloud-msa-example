@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 @Component
-public class FeignErrorDecoder implements ErrorDecoder {
+public class OrderFeignErrorDecoder implements ErrorDecoder {
     Environment env;
 
     @Autowired
-    public FeignErrorDecoder(Environment env) {
+    public OrderFeignErrorDecoder(Environment env) {
         this.env = env;
     }
 
