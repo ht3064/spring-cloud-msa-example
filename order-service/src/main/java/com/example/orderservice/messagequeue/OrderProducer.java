@@ -5,24 +5,28 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.springframework.kafka.core.KafkaTemplate;
 
 @Service
 @Slf4j
 public class OrderProducer {
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    @Value("${eureka.instance.instance-id}")
+    private String instanceId;
+
     List<Field> fields = Arrays.asList(new Field("string", true, "order_id"),
             new Field("string", true, "user_id"),
             new Field("string", true, "product_id"),
             new Field("int32", true, "qty"),
             new Field("int32", true, "unit_price"),
-            new Field("int32", true, "total_price"));
+            new Field("int32", true, "total_price"),
+            new Field("string", true, "instance_id"));
     Schema schema = Schema.builder()
             .type("struct")
             .fields(fields)
@@ -43,6 +47,7 @@ public class OrderProducer {
                 .qty(orderDto.getQty())
                 .unit_price(orderDto.getUnitPrice())
                 .total_price(orderDto.getTotalPrice())
+                .instance_id(instanceId)
                 .build();
 
         KafkaOrderDto kafkaOrderDto = new KafkaOrderDto(schema, payload);
