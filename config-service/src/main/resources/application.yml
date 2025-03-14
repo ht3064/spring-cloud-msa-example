@@ -2,20 +2,67 @@ server:
   port: 8888
 
 spring:
-#  profiles:
-#    active: native
   application:
     name: config-service
   cloud:
     config:
       server:
-#        native:
-#          search-locations: file:///Users/choehyeontae/Documents/msa
-        git: #default
-          uri: https://github.com/ht3064/spring-cloud-config.git
+        git:
+          uri: git@github.com:ht3064/spring-cloud-config.git
           default-label: main
-#          username: <github-id>
-#          password: <gihub-accessToken>
+          ignore-local-ssh-settings: true
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
         bootstrap: true
 #  rabbitmq:
 #    host: 127.0.0.1
