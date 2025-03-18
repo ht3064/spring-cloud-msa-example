@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: order-service
+  kafka:
+    host: localhost
+    port: 9092
   rabbitmq:
     host: 127.0.0.1
     port: 5672
