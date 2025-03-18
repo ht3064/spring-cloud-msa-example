@@ -21,4 +21,6 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'junit:junit'
+
+	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
 }
