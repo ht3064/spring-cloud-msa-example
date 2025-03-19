@@ -30,6 +30,9 @@ public class WebSecurityConfig {
     @Value("${security.allowed-ip}")
     private String allowedIp;
 
+    @Value("${gateway.ip}")
+    private String gatewayIp;
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
@@ -52,7 +55,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/**").access(
                                 new WebExpressionAuthorizationManager(
                                         "hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
-                                                "hasIpAddress('" + allowedIp + "') or hasIpAddress('" + allowedIp + "/32" + "')")) // host pc ip address
+//                                                "hasIpAddress('" + allowedIp + "') or hasIpAddress('" + allowedIp + "/32" + "') or " + // host pc ip address
+                                                "hasIpAddress('" + gatewayIp + "') or hasIpAddress('" + gatewayIp + "/16" + "')")) // gateway ip address
                         .anyRequest().authenticated()
                 )
                 .authenticationManager(authenticationManager)
