@@ -1,6 +1,7 @@
 services:
   user-service:
     image: ht3064/user-service:lgcns
+    container_name: user-service
     environment:
       spring.cloud.config.uri: http://config-service:8888
       spring.zipkin.base-url: http://zipkin-zipkin-1:9411
@@ -14,6 +15,7 @@ services:
 
   order-service:
     image: ht3064/order-service:lgcns
+    container_name: order-service
     environment:
       spring.kafka.host: broker
       spring.rabbitmq.host: rabbitmq
@@ -26,6 +28,7 @@ services:
 
   catalog-service:
     image: ht3064/catalog-service:lgcns
+    container_name: catalog-service
     environment:
       spring.kafka.host: broker
       spring.datasource.url: jdbc:mariadb://mariadb-server:3306/mydb
