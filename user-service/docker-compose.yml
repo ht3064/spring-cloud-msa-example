@@ -1,0 +1,16 @@
+services:
+  user-service:
+    image: user-service:1.0
+    environment:
+      spring.cloud.config.uri: http://config-service:8888
+      spring.zipkin.base-url: http://zipkin-zipkin-1:9411
+      spring.rabbitmq.host: rabbitmq
+      eureka.client.service-url.default-zone: http://eureka-service:8761/eureka/
+      management.zipkin.tracing.endpoint: http://zipkin-zipkin-1:9411/api/v2/spans
+    networks:
+      my-network:
+
+networks:
+  my-network:
+    external: true
+    name: ecommerce-network
