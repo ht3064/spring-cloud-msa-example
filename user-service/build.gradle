@@ -34,5 +34,5 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
     // Rabbit MQ
-//    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 }
